@@ -17,7 +17,7 @@ import com.brayancordeiro.restwithspringboot.services.PersonServices;
 @RequestMapping("/person")
 public class PersonController {
 	
-	@Autowired //Spring implementa private PersonServices service = new PersonServices();
+	@Autowired 
 	private PersonServices service;
 	
 	@RequestMapping(method=RequestMethod.GET,
@@ -30,7 +30,7 @@ public class PersonController {
 	@RequestMapping(value = "/{id}",
 			method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findById(@PathVariable(value = "id") String id) {
+	public Person findById(@PathVariable(value = "id") Long id) {
 		
 		return service.findById(id);
 	}
@@ -53,7 +53,7 @@ public class PersonController {
 	
 	@RequestMapping(value = "/{id}",
 			method=RequestMethod.DELETE)
-	public void deletePerson(@PathVariable(value = "id") String id) {
+	public void deletePerson(@PathVariable(value = "id") Long id) {
 		
 		service.deletePerson(id);
 	}
