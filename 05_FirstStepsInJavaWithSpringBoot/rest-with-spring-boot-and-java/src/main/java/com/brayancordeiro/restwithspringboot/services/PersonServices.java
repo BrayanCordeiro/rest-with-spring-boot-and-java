@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.brayancordeiro.restwithspringboot.data.vo.v1.PersonVO;
 import com.brayancordeiro.restwithspringboot.exceptions.ResourceNotFoundException;
+import com.brayancordeiro.restwithspringboot.mapper.DozerMapper;
 import com.brayancordeiro.restwithspringboot.model.Person;
 import com.brayancordeiro.restwithspringboot.repositories.PersonRepository;
 
@@ -19,30 +21,36 @@ public class PersonServices {
 	
 	private Logger logger = Logger.getLogger(PersonServices.class.getName());
 	
-	public List<Person> findAll() {
+	public List<PersonVO> findAll() {
 		
 		logger.info("Finding all people");		
 		
-		return repository.findAll();
+		return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
 	}
 	
 
-	public Person findById(Long id) {
+	public PersonVO findById(Long id) {
 		
 		logger.info("Finding one person");
 		
-		return repository.findById(id)
+		var entity = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+		
+		return DozerMapper.parseObject(entity, PersonVO.class);
 	}
 	
-	public Person createPerson(Person person) {
+	public PersonVO createPerson(PersonVO person) {
 		
 		logger.info("Creating one person");
 		
-		return repository.save(person);	
+		var entity = DozerMapper.parseObject(person, Person.class);
+		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+		
+		return vo;	
 	}
 	
-	public Person updatePerson(Person person) {
+	
+	public PersonVO updatePerson(PersonVO person) {
 		
 		logger.info("Updating one person");
 		
@@ -54,7 +62,8 @@ public class PersonServices {
 		entity.setAdress(person.getAdress());
 		entity.setGender(person.getGender());
 		
-		return repository.save(person);
+		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+		return vo;
 	}
 	
 	public void deletePerson(Long id) {
