@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.brayancordeiro.restwithspringboot.data.vo.v1.PersonVO;
-import com.brayancordeiro.restwithspringboot.data.vo.v2.PersonVOV2;
 import com.brayancordeiro.restwithspringboot.exceptions.ResourceNotFoundException;
 import com.brayancordeiro.restwithspringboot.mapper.DozerMapper;
-import com.brayancordeiro.restwithspringboot.mapper.custom.PersonMapper;
 import com.brayancordeiro.restwithspringboot.model.Person;
 import com.brayancordeiro.restwithspringboot.repositories.PersonRepository;
 
@@ -20,9 +18,6 @@ public class PersonServices {
 
 	@Autowired 
 	private PersonRepository repository;
-	
-	@Autowired 
-	private PersonMapper personMapper;
 	
 	private Logger logger = Logger.getLogger(PersonServices.class.getName());
 	
@@ -53,17 +48,6 @@ public class PersonServices {
 		
 		return vo;	
 	}
-	
-public PersonVOV2 createPersonV2(PersonVOV2 personvov2) {
-		
-		logger.info("Creating one person whith V2");
-		
-		var entity = personMapper.convertVoToEntity(personvov2);
-		var vo = personMapper.convertEntityToVo(repository.save(entity));
-		
-		return vo;	
-	}
-	
 	
 	public PersonVO updatePerson(PersonVO person) {
 		

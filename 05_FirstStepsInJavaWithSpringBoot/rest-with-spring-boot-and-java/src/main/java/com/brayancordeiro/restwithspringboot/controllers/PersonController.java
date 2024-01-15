@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brayancordeiro.restwithspringboot.data.vo.v1.PersonVO;
-import com.brayancordeiro.restwithspringboot.data.vo.v2.PersonVOV2;
 import com.brayancordeiro.restwithspringboot.services.PersonServices;
 
 @RestController
@@ -44,14 +43,6 @@ public class PersonController {
 		public PersonVO createPerson(@RequestBody PersonVO person) {
 		
 		return service.createPerson(person);
-	}
-	
-	@PostMapping(value = "/v2",
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-		public PersonVOV2 createPersonv2(@RequestBody PersonVOV2 person) {
-		
-		return service.createPersonV2(person);
 	}
 	
 	
