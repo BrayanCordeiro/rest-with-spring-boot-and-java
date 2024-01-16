@@ -1,7 +1,7 @@
-INSERT INTO `person` VALUES (1,'Cordeiro','Paulista-PE','Brayan','Male'),
-(2,'Cordeiro','Paulista-PE','Lanna','Female'),
-(3,'Lira','Olinda-PE','Luisa','Female'),
-(4,'Fernandes','Igarassu-PE','Lucas','Male'),
-(5,'Almeida','Recife-PE','Amanda','Female'),
-(6,'Dias','Paulista-PE','Heitor','Male'),
-(7,'Alves','Paulista-PE','Alex','Male');
+INSERT INTO `person` VALUES (1,'Brayan','Cordeiro','Paulista-PE','Male'),
+(2,'Lanna','Cordeiro','Paulista-PE','Female'),
+(3,'Luisa','Lira','Olinda-PE','Female'),
+(4,'Lucas','Fernandes','Igarassu-PE','Male'),
+(5,'Elisangela','Almeida','Recife-PE','Female'),
+(6,'Heitor','Dias','Paulista-PE','Male'),
+(7,'Alex','Alves','Paulista-PE','Male');

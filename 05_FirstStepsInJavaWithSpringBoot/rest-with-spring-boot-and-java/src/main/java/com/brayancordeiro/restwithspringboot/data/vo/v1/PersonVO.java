@@ -3,13 +3,23 @@ package com.brayancordeiro.restwithspringboot.data.vo.v1;
 import java.io.Serializable;
 import java.util.Objects;
 
+//import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "adress"})
 public class PersonVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+//	@JsonProperty("first_name") <-- altera o nome de exibição
 	private String firstName;
+	
+//	@JsonProperty("last_name")
 	private String LastName;
+	
 	private String adress;
 	private String gender;
 	
