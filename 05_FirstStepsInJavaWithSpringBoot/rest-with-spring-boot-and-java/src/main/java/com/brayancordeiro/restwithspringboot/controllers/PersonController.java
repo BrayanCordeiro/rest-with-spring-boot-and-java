@@ -19,7 +19,7 @@ import com.brayancordeiro.restwithspringboot.data.vo.v1.PersonVO;
 import com.brayancordeiro.restwithspringboot.services.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 	
 	@Autowired 
