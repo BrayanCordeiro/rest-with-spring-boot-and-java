@@ -3,34 +3,32 @@ package com.brayancordeiro.restwithspringboot.data.vo.v1;
 import java.io.Serializable;
 import java.util.Objects;
 
-//import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
 
 
-@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "adress"})
-public class PersonVO implements Serializable {
+@JsonPropertyOrder({"key", "firstName", "lastName", "gender", "adress"})
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-	
-//	@JsonProperty("first_name") <-- altera o nome de exibição
+	@Mapping("id")
+	private Long key;
 	private String firstName;
-	
-//	@JsonProperty("last_name")
 	private String LastName;
-	
 	private String adress;
 	private String gender;
 	
 	public PersonVO() {}
 
-	public long getId() {
-		return id;
+	public Long getKey() {
+		return key;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public String getFirstName() {
@@ -67,23 +65,24 @@ public class PersonVO implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(adress, firstName, gender, id, LastName);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(LastName, adress, firstName, gender, key);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		PersonVO other = (PersonVO) obj;
-		return Objects.equals(adress, other.adress) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && id == other.id && Objects.equals(LastName, other.LastName);
+		return Objects.equals(LastName, other.LastName) && Objects.equals(adress, other.adress)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
+				&& Objects.equals(key, other.key);
 	}
-	
-	
-	
 	
 }
