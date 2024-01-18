@@ -1,5 +1,7 @@
 package com.brayancordeiro.restwithspringboot.exceptions.handler;
 
+
+
 import java.util.Date;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.brayancordeiro.restwithspringboot.exceptions.ExceptionResponse;
+import com.brayancordeiro.restwithspringboot.exceptions.RequiredObjectIsNullException;
 import com.brayancordeiro.restwithspringboot.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -29,6 +32,16 @@ public class CustomizedResponseEntityExceptionHandler  extends ResponseEntityExc
 	
 	@ExceptionHandler(ResourceNotFoundException.class)//filtra o tipo de excessão
 	public final ResponseEntity<ExceptionResponse> handlerNotFoundExceptions(
+			Exception ex, WebRequest request){
+		
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				new Date(), ex.getMessage(), request.getDescription(false));
+		
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(RequiredObjectIsNullException.class)//filtra o tipo de excessão
+	public final ResponseEntity<ExceptionResponse> handlerBadRequestExceptions(
 			Exception ex, WebRequest request){
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
