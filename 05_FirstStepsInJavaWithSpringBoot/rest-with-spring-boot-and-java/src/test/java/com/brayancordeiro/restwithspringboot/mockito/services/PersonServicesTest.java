@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +36,55 @@ MockPerson input;
 	void setUpMocks() throws Exception {
 		input = new MockPerson();
 		MockitoAnnotations.openMocks(this);
+	}
+	
+	@Test
+	void testFindAll() {
+		List<Person> list = input.mockEntityList(); 
+		
+		when(repository.findAll()).thenReturn(list);
+		
+		var people = service.findAll();
+		
+		assertNotNull(people);
+		assertEquals(14, people.size());
+		
+		var personOne = people.get(1);
+		
+		assertNotNull(personOne);
+		assertNotNull(personOne.getKey());
+		assertNotNull(personOne.getLinks());
+		
+		assertTrue(personOne.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
+		assertEquals("Addres Test1", personOne.getAdress());
+		assertEquals("First Name Test1", personOne.getFirstName());
+		assertEquals("Last Name Test1", personOne.getLastName());
+		assertEquals("Female", personOne.getGender());
+		
+		var personFive = people.get(5);
+		
+		assertNotNull(personFive);
+		assertNotNull(personFive.getKey());
+		assertNotNull(personFive.getLinks());
+		
+		assertTrue(personFive.toString().contains("links: [</api/person/v1/5>;rel=\"self\"]"));
+		assertEquals("Addres Test5", personFive.getAdress());
+		assertEquals("First Name Test5", personFive.getFirstName());
+		assertEquals("Last Name Test5", personFive.getLastName());
+		assertEquals("Female", personFive.getGender());
+		
+		var personTen = people.get(10);
+		
+		assertNotNull(personTen);
+		assertNotNull(personTen.getKey());
+		assertNotNull(personTen.getLinks());
+		
+		assertTrue(personTen.toString().contains("links: [</api/person/v1/10>;rel=\"self\"]"));
+		assertEquals("Addres Test10", personTen.getAdress());
+		assertEquals("First Name Test10", personTen.getFirstName());
+		assertEquals("Last Name Test10", personTen.getLastName());
+		assertEquals("Male", personTen.getGender());
+
 	}
 
 	@Test
@@ -142,11 +191,6 @@ MockPerson input;
 		when(repository.findById(1L)).thenReturn(Optional.of(entity));
 		
 		service.deletePerson(1L);
-	}
-	
-	@Test
-	void testFindAll() {
-		fail("Not yet implemented");
 	}
 
 }
